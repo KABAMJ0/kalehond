@@ -1,0 +1,16 @@
+run = "php -S 0.0.0.0:8000 -t ."
+
+entrypoint = "index.php"
+
+[[ports]]
+localPort = 21
+externalPort = 3000
+
+[[ports]]
+localPort = 22
+externalPort = 3001
+
+[[ports]]
+localPort = 8000
+externalPort = 80
+
